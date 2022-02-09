@@ -3,6 +3,7 @@ using CommanderGQL.Data;
 using CommanderGQL.GraphQL;
 using CommanderGQL.GraphQL.Platforms;
 using GraphQL.Server.Ui.Voyager;
+using CommanderGQL.GraphQL.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,10 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
     .AddType<PlatformType>()
-    .AddProjections();
+    .AddType<CommandType>()
+    .AddFiltering()
+    .AddSorting()
+;
 
 
 var app = builder.Build();
