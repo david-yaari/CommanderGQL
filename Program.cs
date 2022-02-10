@@ -15,17 +15,20 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
+    .AddMutationType<Mutation>()
+    .AddSubscriptionType<Subscription>()
     .AddType<PlatformType>()
     .AddType<CommandType>()
     .AddFiltering()
     .AddSorting()
+    .AddInMemorySubscriptions()
 ;
-
 
 var app = builder.Build();
 
 //IConfiguration configuration = app.Configuration;
 //IWebHostEnvironment environment = app.Environment;
+app.UseWebSockets();
 
 app.MapGraphQL();
 app.UseGraphQLVoyager(new VoyagerOptions()
